@@ -1,0 +1,23 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  namespace: default
+  name: springboot-knative-app
+spec:
+  template:
+    spec:
+      containers:
+        - image: ghcr.io/bhawneshdipu/docker-registory/springboot-knative-app:latest
+          env:
+            - name: BP_JVM_VERSION
+              value: "17"
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+  traffic:
+    - latestRevision: false
+      revisionName: springboot-knative-app-00001
+      percent: 50
+    - latestRevision: false
+      revisionName: springboot-knative-app-00002
+      percent: 50
