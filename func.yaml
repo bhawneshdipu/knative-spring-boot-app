@@ -1,0 +1,20 @@
+specVersion: 0.36.0
+name: springboot-knative-app
+runtime: springboot
+registry: ghcr.io/bhawneshdipu/docker-registory
+created: 2024-05-20T18:43:15.820024+05:30
+build:
+  builder: pack
+  buildEnvs:
+  - name: BP_NATIVE_IMAGE
+    value: "false"
+  - name: BP_JVM_VERSION
+    value: "21"
+  - name: BP_MAVEN_ACTIVE_PROFILES
+    value: native
+deploy:
+  namespace: default
+  image: ghcr.io/bhawneshdipu/docker-registory/springboot-knative-app@sha256:756b10e1057739c4c0f72d4b89dc01f7679a3d68cfca39c7bb4605db40acb608
+  healthEndpoints:
+    liveness: /actuator/health
+    readiness: /actuator/health
